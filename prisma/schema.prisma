@@ -27,6 +27,7 @@ model Venture {
   decisions        Decision[]
   meetings         Meeting[]
   contacts         Contact[]
+  swotAnalyses     SWOTAnalysis[]
 }
 
 model Task {
@@ -270,4 +271,25 @@ model DigitalItem {
   isProtected Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model SWOTAnalysis {
+  id            String       @id @default(cuid())
+  title         String
+  ventureId     String?
+  venture       Venture?     @relation(fields: [ventureId], references: [id], onDelete: Cascade)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  items         SWOTItem[]
+}
+
+model SWOTItem {
+  id          String       @id @default(cuid())
+  analysisId  String
+  category    String       // "strength", "weakness", "opportunity", "threat"
+  content     String
+  order       Int          @default(0)
+  analysis    SWOTAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }

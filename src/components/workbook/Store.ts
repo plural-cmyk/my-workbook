@@ -18,6 +18,7 @@ export type ViewKey =
   | 'weekly-review'
   | 'brain-dump'
   | 'digital-store'
+  | 'swot'
   | 'search'
   | 'settings'
 

@@ -8,7 +8,7 @@ import {
   LayoutDashboard, Briefcase, DollarSign, GraduationCap, Heart, Brain,
   Search, Settings, ChevronDown, ChevronRight, Menu, X, Shield, FileText,
   StickyNote, Clock, Users, Target, Lightbulb, Repeat, Calendar, BarChart3,
-  PieChart as PieChartIcon, Plus
+  PieChart as PieChartIcon, Plus, LayoutGrid
 } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Button } from '@/components/ui/button'
@@ -82,6 +82,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           {sectionsOpen.ventures && (
             <div>
               <NavItem view="dashboard" label="All Ventures" icon={<Briefcase className="h-4 w-4" />} />
+              <NavItem view="swot" label="SWOT Analysis" icon={<LayoutGrid className="h-4 w-4" />} />
               {ventures.data?.map((v: any) => (
                 <button key={v.id} onClick={() => { nav.openVenture(v.id); onClose() }}
                   className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${nav.ventureId === v.id && nav.view === 'venture-dashboard' ? 'bg-green-700/20 text-lime-400' : 'text-stone-400 hover:bg-stone-800 hover:text-stone-200'}`}>

@@ -8,6 +8,7 @@ import { VentureDashboard, VentureForm } from '@/components/workbook/VentureDash
 import { FinanceOverview, AccountsView, TransactionsView, BudgetsView } from '@/components/workbook/FinanceDashboard'
 import { AcademicTracker, AcademicNotesView } from '@/components/workbook/AcademicTracker'
 import { DigitalStore } from '@/components/workbook/DigitalStore'
+import { SWOTView } from '@/components/workbook/SWOTAnalysis'
 import {
   RelationshipsView, TimePlannerView, LifeAuditView, InsightsView,
   HabitsView, DailyCheckInView, WeeklyReviewView, BrainDumpView,
@@ -55,6 +56,7 @@ function ViewRouter() {
     case 'weekly-review': return <WeeklyReviewView />
     case 'brain-dump': return <BrainDumpView />
     case 'digital-store': return <DigitalStore />
+    case 'swot': return <SWOTView />
     case 'search': return <SearchView />
     case 'settings': return <SettingsView />
     default: return <Dashboard />

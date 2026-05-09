@@ -5,7 +5,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, useNav } from './Store'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
-import { Plus, Trash2, Edit3, Briefcase, ArrowLeft } from 'lucide-react'
+import { Plus, Trash2, Edit3, Briefcase, ArrowLeft, LayoutGrid } from 'lucide-react'
+import { VentureSWOT } from './SWOTAnalysis'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -105,11 +106,13 @@ export function VentureDashboard({ ventureId }: { ventureId: string }) {
           <TabsTrigger value="decisions">Decisions ({v._count?.decisions || 0})</TabsTrigger>
           <TabsTrigger value="meetings">Meetings ({v._count?.meetings || 0})</TabsTrigger>
           <TabsTrigger value="contacts">Contacts ({v._count?.contacts || 0})</TabsTrigger>
+          <TabsTrigger value="swot"><LayoutGrid className="h-3.5 w-3.5 mr-1" />SWOT</TabsTrigger>
         </TabsList>
         <TabsContent value="tasks"><VentureTasks ventureId={ventureId} /></TabsContent>
         <TabsContent value="decisions"><VentureDecisions ventureId={ventureId} /></TabsContent>
         <TabsContent value="meetings"><VentureMeetings ventureId={ventureId} /></TabsContent>
         <TabsContent value="contacts"><VentureContacts ventureId={ventureId} /></TabsContent>
+        <TabsContent value="swot"><VentureSWOT ventureId={ventureId} /></TabsContent>
       </Tabs>
     </div>
   )
