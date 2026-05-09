@@ -68,28 +68,28 @@ export default function WorkbookApp() {
     <button
       key={view}
       onClick={() => { nav.setView(view); setSidebarOpen(false) }}
-      className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${nav.view === view ? 'bg-emerald-600/20 text-emerald-400' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'}`}
+      className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${nav.view === view ? 'bg-green-700/20 text-lime-400' : 'text-stone-400 hover:bg-stone-800 hover:text-stone-200'}`}
     >
       {icon}<span>{label}</span>
     </button>
   )
 
   const SectionHeader = ({ id, label }: { id: string; label: string }) => (
-    <button onClick={() => toggleSection(id)} className="flex items-center gap-1 w-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-zinc-300">
+    <button onClick={() => toggleSection(id)} className="flex items-center gap-1 w-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-stone-500 hover:text-stone-300">
       {sectionsOpen[id] ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
       {label}
     </button>
   )
 
   const sidebar = (
-    <div className="flex flex-col h-full bg-zinc-950 border-r border-zinc-800">
-      <div className="flex items-center gap-3 px-4 py-4 border-b border-zinc-800">
+    <div className="flex flex-col h-full bg-stone-950 border-r border-stone-800">
+      <div className="flex items-center gap-3 px-4 py-4 border-b border-stone-800">
         <img src="/logo.jpeg" alt="Logo" className="h-9 w-9 rounded-lg object-cover" />
         <div>
           <h1 className="text-sm font-bold text-white leading-tight">My Workbook</h1>
-          <p className="text-[10px] text-zinc-500">Operations Hub</p>
+          <p className="text-[10px] text-stone-500">Operations Hub</p>
         </div>
-        <button className="ml-auto lg:hidden text-zinc-400" onClick={() => setSidebarOpen(false)}><X className="h-5 w-5" /></button>
+        <button className="ml-auto lg:hidden text-stone-400" onClick={() => setSidebarOpen(false)}><X className="h-5 w-5" /></button>
       </div>
       <ScrollArea className="flex-1 px-2 py-2">
         <div className="space-y-0.5">
@@ -102,7 +102,7 @@ export default function WorkbookApp() {
               {navItems('dashboard', 'All Ventures', <Briefcase className="h-4 w-4" />)}
               {ventures.data?.map((v: any) => (
                 <button key={v.id} onClick={() => { nav.openVenture(v.id); setSidebarOpen(false) }}
-                  className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${nav.ventureId === v.id && nav.view === 'venture-dashboard' ? 'bg-emerald-600/20 text-emerald-400' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'}`}>
+                  className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${nav.ventureId === v.id && nav.view === 'venture-dashboard' ? 'bg-green-700/20 text-lime-400' : 'text-stone-400 hover:bg-stone-800 hover:text-stone-200'}`}>
                   <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: v.color }} />
                   <span className="truncate">{v.name}</span>
                 </button>
@@ -168,8 +168,8 @@ export default function WorkbookApp() {
       {sidebarOpen && <div className="fixed inset-0 z-50 lg:hidden"><div className="absolute inset-0 bg-black/60" onClick={() => setSidebarOpen(false)} /><div className="relative w-[260px] h-full">{sidebar}</div></div>}
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center gap-3 px-4 py-3 border-b border-zinc-800 lg:hidden">
-          <button onClick={() => setSidebarOpen(true)} className="text-zinc-400"><Menu className="h-5 w-5" /></button>
+        <header className="flex items-center gap-3 px-4 py-3 border-b border-stone-800 lg:hidden">
+          <button onClick={() => setSidebarOpen(true)} className="text-stone-400"><Menu className="h-5 w-5" /></button>
           <span className="font-semibold text-sm">My Workbook</span>
         </header>
         <main className="flex-1 overflow-y-auto p-4 lg:p-6">
@@ -208,10 +208,10 @@ function ViewRouter({ nav }: { nav: ReturnType<typeof useNav> }) {
 
 // ─── Shared components ───────────────────────────────────────────────
 function StatCard({ title, value, icon, sub }: { title: string; value: string | number; icon: React.ReactNode; sub?: string }) {
-  return <Card className="bg-zinc-900 border-zinc-800">
+  return <Card className="bg-stone-900 border-stone-800">
     <CardContent className="p-4 flex items-center gap-4">
-      <div className="p-2 rounded-lg bg-emerald-600/10 text-emerald-400">{icon}</div>
-      <div><p className="text-xs text-zinc-500">{title}</p><p className="text-xl font-bold">{value}</p>{sub && <p className="text-xs text-zinc-500">{sub}</p>}</div>
+      <div className="p-2 rounded-lg bg-green-700/10 text-lime-400">{icon}</div>
+      <div><p className="text-xs text-stone-500">{title}</p><p className="text-xl font-bold">{value}</p>{sub && <p className="text-xs text-stone-500">{sub}</p>}</div>
     </CardContent>
   </Card>
 }
@@ -220,16 +220,16 @@ function CreateDialog({ title, trigger, children, onSubmit, open, onOpenChange }
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 max-h-[85vh] overflow-y-auto">
+      <DialogContent className="bg-stone-900 border-stone-800 text-stone-100 max-h-[85vh] overflow-y-auto">
         <DialogHeader><DialogTitle>{title}</DialogTitle></DialogHeader>
         <div className="space-y-3">{children}</div>
-        <DialogFooter><Button onClick={onSubmit} className="bg-emerald-600 hover:bg-emerald-700">Save</Button></DialogFooter>
+        <DialogFooter><Button onClick={onSubmit} className="bg-green-700 hover:bg-green-800">Save</Button></DialogFooter>
       </DialogContent>
     </Dialog>
   )
 }
 
-function LoadingSpinner() { return <div className="flex items-center justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-emerald-400" /></div> }
+function LoadingSpinner() { return <div className="flex items-center justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-lime-400" /></div> }
 
 // ─── Dashboard ───────────────────────────────────────────────────────
 function DashboardView({ nav }: { nav: ReturnType<typeof useNav> }) {
@@ -252,28 +252,28 @@ function DashboardView({ nav }: { nav: ReturnType<typeof useNav> }) {
         <StatCard title="Upcoming" value={upcoming} icon={<Clock className="h-5 w-5" />} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-stone-900 border-stone-800">
           <CardHeader><CardTitle className="text-lg">Ventures</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             {ventures.data?.map((v: any) => (
-              <button key={v.id} onClick={() => nav.openVenture(v.id)} className="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-zinc-800 transition-colors">
+              <button key={v.id} onClick={() => nav.openVenture(v.id)} className="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-stone-800 transition-colors">
                 <div className="h-3 w-3 rounded-full" style={{ backgroundColor: v.color }} />
                 <span className="text-sm font-medium">{v.name}</span>
                 <Badge variant="outline" className="ml-auto text-[10px]">{v.stage}</Badge>
               </button>
-            )) || <p className="text-zinc-500 text-sm">No ventures yet</p>}
+            )) || <p className="text-stone-500 text-sm">No ventures yet</p>}
           </CardContent>
         </Card>
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-stone-900 border-stone-800">
           <CardHeader><CardTitle className="text-lg">Recent Tasks</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             {tasks.data?.slice(0, 5).map((t: any) => (
-              <div key={t.id} className="flex items-center gap-2 p-2 rounded-lg hover:bg-zinc-800">
-                {t.status === 'done' ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <Circle className="h-4 w-4 text-zinc-500" />}
+              <div key={t.id} className="flex items-center gap-2 p-2 rounded-lg hover:bg-stone-800">
+                {t.status === 'done' ? <CheckCircle2 className="h-4 w-4 text-lime-400" /> : <Circle className="h-4 w-4 text-stone-500" />}
                 <span className="text-sm">{t.title}</span>
                 <Badge variant="outline" className="ml-auto text-[10px]">{t.priority}</Badge>
               </div>
-            )) || <p className="text-zinc-500 text-sm">No tasks yet</p>}
+            )) || <p className="text-stone-500 text-sm">No tasks yet</p>}
           </CardContent>
         </Card>
       </div>
@@ -294,24 +294,24 @@ function VentureDashboard({ ventureId }: { ventureId: string }) {
   const updateVenture = useMutation({ mutationFn: (data: any) => api.put(`/api/ventures/${ventureId}`, data), onSuccess: () => { qc.invalidateQueries({ queryKey: ['venture', ventureId] }); qc.invalidateQueries({ queryKey: ['ventures'] }); toast.success('Venture updated'); setShowEdit(false) } })
 
   if (venture.isLoading) return <LoadingSpinner />
-  if (!venture.data) return <p className="text-zinc-500">Venture not found</p>
+  if (!venture.data) return <p className="text-stone-500">Venture not found</p>
   const v = venture.data
 
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <div className="flex items-center gap-3"><div className="h-4 w-4 rounded-full" style={{ backgroundColor: v.color }} /><h2 className="text-2xl font-bold">{v.name}</h2><Badge className="bg-emerald-600/20 text-emerald-400">{v.stage}</Badge></div>
-          <p className="text-zinc-400 text-sm mt-1">{v.description || 'No description'}</p>
+          <div className="flex items-center gap-3"><div className="h-4 w-4 rounded-full" style={{ backgroundColor: v.color }} /><h2 className="text-2xl font-bold">{v.name}</h2><Badge className="bg-green-700/20 text-lime-400">{v.stage}</Badge></div>
+          <p className="text-stone-400 text-sm mt-1">{v.description || 'No description'}</p>
           <div className="flex gap-4 mt-2 text-sm">
-            <span className="text-zinc-500">Value: <span className="text-emerald-400 font-semibold">${v.monetaryValue?.toLocaleString()}</span></span>
-            {v.valueDescription && <span className="text-zinc-500">({v.valueDescription})</span>}
+            <span className="text-stone-500">Value: <span className="text-lime-400 font-semibold">${v.monetaryValue?.toLocaleString()}</span></span>
+            {v.valueDescription && <span className="text-stone-500">({v.valueDescription})</span>}
           </div>
           {v.needs && <p className="text-sm text-amber-400/80 mt-1">Needs: {v.needs}</p>}
         </div>
         <Dialog open={showEdit} onOpenChange={setShowEdit}>
           <DialogTrigger asChild><Button variant="outline" size="sm"><Edit3 className="h-4 w-4 mr-1" />Edit</Button></DialogTrigger>
-          <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 max-h-[85vh] overflow-y-auto">
+          <DialogContent className="bg-stone-900 border-stone-800 text-stone-100 max-h-[85vh] overflow-y-auto">
             <DialogHeader><DialogTitle>Edit Venture</DialogTitle></DialogHeader>
             <div className="space-y-3">
               <div><Label>Name</Label><Input value={editForm.name || ''} onChange={e => setEditForm({ ...editForm, name: e.target.value })} /></div>
@@ -322,17 +322,17 @@ function VentureDashboard({ ventureId }: { ventureId: string }) {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div><Label>Monetary Value</Label><Input type="number" value={editForm.monetaryValue || 0} onChange={e => setEditForm({ ...editForm, monetaryValue: +e.target.value })} /></div>
-                <div><Label>Color</Label><Input type="color" value={editForm.color || '#10b981'} onChange={e => setEditForm({ ...editForm, color: e.target.value })} /></div>
+                <div><Label>Color</Label><Input type="color" value={editForm.color || '#4d7c0f'} onChange={e => setEditForm({ ...editForm, color: e.target.value })} /></div>
               </div>
               <div><Label>Value Description</Label><Input value={editForm.valueDescription || ''} onChange={e => setEditForm({ ...editForm, valueDescription: e.target.value })} /></div>
               <div><Label>Needs</Label><Textarea value={editForm.needs || ''} onChange={e => setEditForm({ ...editForm, needs: e.target.value })} /></div>
             </div>
-            <DialogFooter><Button onClick={() => updateVenture.mutate(editForm)} className="bg-emerald-600 hover:bg-emerald-700">Save</Button></DialogFooter>
+            <DialogFooter><Button onClick={() => updateVenture.mutate(editForm)} className="bg-green-700 hover:bg-green-800">Save</Button></DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
       <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="bg-zinc-800"><TabsTrigger value="tasks">Tasks ({v.tasks?.length || 0})</TabsTrigger><TabsTrigger value="decisions">Decisions ({v.decisions?.length || 0})</TabsTrigger><TabsTrigger value="meetings">Meetings ({v.meetings?.length || 0})</TabsTrigger><TabsTrigger value="contacts">Contacts ({v.contacts?.length || 0})</TabsTrigger></TabsList>
+        <TabsList className="bg-stone-800"><TabsTrigger value="tasks">Tasks ({v.tasks?.length || 0})</TabsTrigger><TabsTrigger value="decisions">Decisions ({v.decisions?.length || 0})</TabsTrigger><TabsTrigger value="meetings">Meetings ({v.meetings?.length || 0})</TabsTrigger><TabsTrigger value="contacts">Contacts ({v.contacts?.length || 0})</TabsTrigger></TabsList>
         <TabsContent value="tasks"><VentureTasks ventureId={ventureId} /></TabsContent>
         <TabsContent value="decisions"><VentureDecisions ventureId={ventureId} /></TabsContent>
         <TabsContent value="meetings"><VentureMeetings ventureId={ventureId} /></TabsContent>
@@ -357,21 +357,21 @@ function VentureTasks({ ventureId }: { ventureId: string }) {
   const done = tasks.data?.filter((t: any) => t.status === 'done') || []
 
   const TaskCard = ({ t }: { t: any }) => (
-    <div className="p-3 rounded-lg bg-zinc-800 border border-zinc-700 space-y-2">
-      <div className="flex items-start justify-between"><span className="text-sm font-medium">{t.title}</span><button onClick={() => del.mutate(t.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-3.5 w-3.5" /></button></div>
-      {t.description && <p className="text-xs text-zinc-400">{t.description}</p>}
+    <div className="p-3 rounded-lg bg-stone-800 border border-stone-700 space-y-2">
+      <div className="flex items-start justify-between"><span className="text-sm font-medium">{t.title}</span><button onClick={() => del.mutate(t.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-3.5 w-3.5" /></button></div>
+      {t.description && <p className="text-xs text-stone-400">{t.description}</p>}
       <div className="flex items-center gap-2"><Badge variant="outline" className="text-[10px]">{t.priority}</Badge>
-        {t.status !== 'done' && <button onClick={() => updateStatus.mutate({ id: t.id, status: t.status === 'todo' ? 'in-progress' : 'done' })} className="text-[10px] text-emerald-400 hover:underline">{t.status === 'todo' ? 'Start →' : 'Done ✓'}</button>}
+        {t.status !== 'done' && <button onClick={() => updateStatus.mutate({ id: t.id, status: t.status === 'todo' ? 'in-progress' : 'done' })} className="text-[10px] text-lime-400 hover:underline">{t.status === 'todo' ? 'Start →' : 'Done ✓'}</button>}
       </div>
     </div>
   )
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end"><Button onClick={() => setShowCreate(true)} size="sm" className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Task</Button></div>
+      <div className="flex justify-end"><Button onClick={() => setShowCreate(true)} size="sm" className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Task</Button></div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[['To Do', todo], ['In Progress', inProgress], ['Done', done]].map(([label, items]: any) => (
-          <div key={label}><h4 className="text-xs font-semibold text-zinc-500 uppercase mb-2">{label} ({items.length})</h4><div className="space-y-2">{items.map((t: any) => <TaskCard key={t.id} t={t} />)}</div></div>
+          <div key={label}><h4 className="text-xs font-semibold text-stone-500 uppercase mb-2">{label} ({items.length})</h4><div className="space-y-2">{items.map((t: any) => <TaskCard key={t.id} t={t} />)}</div></div>
         ))}
       </div>
       <CreateDialog title="New Task" trigger={<></>} onSubmit={() => create.mutate()} open={showCreate} onOpenChange={setShowCreate}>
@@ -396,13 +396,13 @@ function VentureDecisions({ ventureId }: { ventureId: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end"><Button onClick={() => setShow(true)} size="sm" className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Decision</Button></div>
+      <div className="flex justify-end"><Button onClick={() => setShow(true)} size="sm" className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Decision</Button></div>
       {items.data?.map((d: any) => (
-        <Card key={d.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
-          <div className="flex justify-between"><h4 className="font-medium">{d.title}</h4><button onClick={() => del.mutate(d.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
-          {d.context && <p className="text-xs text-zinc-400 mt-1">Context: {d.context}</p>}
-          {d.decision && <p className="text-xs text-emerald-400 mt-1">Decision: {d.decision}</p>}
-          {d.rationale && <p className="text-xs text-zinc-500 mt-1">Rationale: {d.rationale}</p>}
+        <Card key={d.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
+          <div className="flex justify-between"><h4 className="font-medium">{d.title}</h4><button onClick={() => del.mutate(d.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
+          {d.context && <p className="text-xs text-stone-400 mt-1">Context: {d.context}</p>}
+          {d.decision && <p className="text-xs text-lime-400 mt-1">Decision: {d.decision}</p>}
+          {d.rationale && <p className="text-xs text-stone-500 mt-1">Rationale: {d.rationale}</p>}
         </CardContent></Card>
       ))}
       <CreateDialog title="Log Decision" trigger={<></>} onSubmit={() => create.mutate()} open={show} onOpenChange={setShow}>
@@ -424,12 +424,12 @@ function VentureMeetings({ ventureId }: { ventureId: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end"><Button onClick={() => setShow(true)} size="sm" className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Meeting</Button></div>
+      <div className="flex justify-end"><Button onClick={() => setShow(true)} size="sm" className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Meeting</Button></div>
       {items.data?.map((m: any) => (
-        <Card key={m.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
-          <div className="flex justify-between"><h4 className="font-medium">{m.title}</h4><span className="text-xs text-zinc-500">{format(new Date(m.date), 'MMM d, yyyy')}</span></div>
-          {m.attendees && <p className="text-xs text-zinc-400 mt-1">Attendees: {m.attendees}</p>}
-          {m.notes && <p className="text-xs text-zinc-500 mt-1">{m.notes}</p>}
+        <Card key={m.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
+          <div className="flex justify-between"><h4 className="font-medium">{m.title}</h4><span className="text-xs text-stone-500">{format(new Date(m.date), 'MMM d, yyyy')}</span></div>
+          {m.attendees && <p className="text-xs text-stone-400 mt-1">Attendees: {m.attendees}</p>}
+          {m.notes && <p className="text-xs text-stone-500 mt-1">{m.notes}</p>}
         </CardContent></Card>
       ))}
       <CreateDialog title="Add Meeting" trigger={<></>} onSubmit={() => create.mutate()} open={show} onOpenChange={setShow}>
@@ -451,14 +451,14 @@ function VentureContacts({ ventureId }: { ventureId: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end"><Button onClick={() => setShow(true)} size="sm" className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Contact</Button></div>
+      <div className="flex justify-end"><Button onClick={() => setShow(true)} size="sm" className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Contact</Button></div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {items.data?.map((c: any) => (
-          <Card key={c.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
+          <Card key={c.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
             <h4 className="font-medium">{c.name}</h4>
-            {c.role && <p className="text-xs text-zinc-400">{c.role}</p>}
-            {c.email && <p className="text-xs text-emerald-400">{c.email}</p>}
-            {c.phone && <p className="text-xs text-zinc-500">{c.phone}</p>}
+            {c.role && <p className="text-xs text-stone-400">{c.role}</p>}
+            {c.email && <p className="text-xs text-lime-400">{c.email}</p>}
+            {c.phone && <p className="text-xs text-stone-500">{c.phone}</p>}
           </CardContent></Card>
         ))}
       </div>
@@ -500,22 +500,22 @@ function FinanceOverview() {
         <StatCard title="Personal" value={`$${personal.toLocaleString()}`} icon={<Users className="h-5 w-5" />} />
         <StatCard title="Venture" value={`$${venture.toLocaleString()}`} icon={<Briefcase className="h-5 w-5" />} />
       </div>
-      <Card className="bg-zinc-900 border-zinc-800">
+      <Card className="bg-stone-900 border-stone-800">
         <CardHeader><CardTitle className="text-lg">Accounts</CardTitle></CardHeader>
         <CardContent>
           <div className="space-y-2">
             {accounts.data?.map((a: any) => (
-              <div key={a.id} className="flex items-center justify-between p-3 rounded-lg bg-zinc-800">
+              <div key={a.id} className="flex items-center justify-between p-3 rounded-lg bg-stone-800">
                 <div><span className="font-medium text-sm">{a.name}</span><Badge variant="outline" className="ml-2 text-[10px]">{a.type}</Badge></div>
-                <span className={`font-semibold ${a.balance >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>${a.balance?.toLocaleString()}</span>
+                <span className={`font-semibold ${a.balance >= 0 ? 'text-lime-400' : 'text-red-400'}`}>${a.balance?.toLocaleString()}</span>
               </div>
             ))}
           </div>
         </CardContent>
       </Card>
-      <Card className="bg-zinc-900 border-zinc-800">
-        <CardHeader className="flex-row items-center justify-between"><CardTitle className="text-lg">AI Financial Insights</CardTitle><Button onClick={handleAI} size="sm" className="bg-emerald-600 hover:bg-emerald-700" disabled={aiLoading}>{aiLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lightbulb className="h-4 w-4 mr-1" />}Analyze</Button></CardHeader>
-        {aiInsight && <CardContent><p className="text-sm text-zinc-300 whitespace-pre-wrap">{aiInsight}</p></CardContent>}
+      <Card className="bg-stone-900 border-stone-800">
+        <CardHeader className="flex-row items-center justify-between"><CardTitle className="text-lg">AI Financial Insights</CardTitle><Button onClick={handleAI} size="sm" className="bg-green-700 hover:bg-green-800" disabled={aiLoading}>{aiLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lightbulb className="h-4 w-4 mr-1" />}Analyze</Button></CardHeader>
+        {aiInsight && <CardContent><p className="text-sm text-stone-300 whitespace-pre-wrap">{aiInsight}</p></CardContent>}
       </Card>
     </div>
   )
@@ -533,14 +533,14 @@ function AccountsView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Accounts</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Account</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Accounts</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Account</Button></div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {accounts.data?.map((a: any) => (
-          <Card key={a.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
-            <div className="flex justify-between"><h4 className="font-medium">{a.name}</h4><button onClick={() => del.mutate(a.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
-            <div className="flex items-center gap-2 mt-1"><Badge variant="outline" className="text-[10px]">{a.type}</Badge><span className="text-xs text-zinc-500">{a.currency}</span></div>
-            <p className={`text-xl font-bold mt-2 ${a.balance >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>${a.balance?.toLocaleString()}</p>
-            {a.description && <p className="text-xs text-zinc-500 mt-1">{a.description}</p>}
+          <Card key={a.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
+            <div className="flex justify-between"><h4 className="font-medium">{a.name}</h4><button onClick={() => del.mutate(a.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
+            <div className="flex items-center gap-2 mt-1"><Badge variant="outline" className="text-[10px]">{a.type}</Badge><span className="text-xs text-stone-500">{a.currency}</span></div>
+            <p className={`text-xl font-bold mt-2 ${a.balance >= 0 ? 'text-lime-400' : 'text-red-400'}`}>${a.balance?.toLocaleString()}</p>
+            {a.description && <p className="text-xs text-stone-500 mt-1">{a.description}</p>}
           </CardContent></Card>
         ))}
       </div>
@@ -570,17 +570,17 @@ function TransactionsView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Transactions</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Transaction</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Transactions</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Transaction</Button></div>
       <div className="space-y-2">
         {transactions.data?.map((t: any) => (
-          <div key={t.id} className="flex items-center justify-between p-3 rounded-lg bg-zinc-900 border border-zinc-800">
+          <div key={t.id} className="flex items-center justify-between p-3 rounded-lg bg-stone-900 border border-stone-800">
             <div className="flex items-center gap-3">
-              {t.type === 'income' ? <TrendingUp className="h-4 w-4 text-emerald-400" /> : <TrendingDown className="h-4 w-4 text-red-400" />}
-              <div><p className="text-sm font-medium">{t.description || t.category || 'Transaction'}</p><p className="text-xs text-zinc-500">{format(new Date(t.date), 'MMM d, yyyy')}{t.category && ` · ${t.category}`}</p></div>
+              {t.type === 'income' ? <TrendingUp className="h-4 w-4 text-lime-400" /> : <TrendingDown className="h-4 w-4 text-red-400" />}
+              <div><p className="text-sm font-medium">{t.description || t.category || 'Transaction'}</p><p className="text-xs text-stone-500">{format(new Date(t.date), 'MMM d, yyyy')}{t.category && ` · ${t.category}`}</p></div>
             </div>
             <div className="flex items-center gap-3">
-              <span className={`font-semibold ${t.type === 'income' ? 'text-emerald-400' : 'text-red-400'}`}>{t.type === 'income' ? '+' : '-'}${t.amount?.toLocaleString()}</span>
-              <button onClick={() => del.mutate(t.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button>
+              <span className={`font-semibold ${t.type === 'income' ? 'text-lime-400' : 'text-red-400'}`}>{t.type === 'income' ? '+' : '-'}${t.amount?.toLocaleString()}</span>
+              <button onClick={() => del.mutate(t.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button>
             </div>
           </div>
         ))}
@@ -613,16 +613,16 @@ function BudgetsView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Budgets</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Budget</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Budgets</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Budget</Button></div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {budgets.data?.map((b: any) => {
           const pct = b.amount > 0 ? Math.min((b.spent / b.amount) * 100, 100) : 0
           return (
-            <Card key={b.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
-              <div className="flex justify-between"><h4 className="font-medium">{b.name}</h4><button onClick={() => del.mutate(b.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
-              <p className="text-xs text-zinc-500 mt-1">{b.period}{b.category && ` · ${b.category}`}</p>
-              <div className="mt-3"><div className="flex justify-between text-sm mb-1"><span className="text-zinc-400">${b.spent?.toLocaleString()}</span><span className="text-zinc-500">${b.amount?.toLocaleString()}</span></div><Progress value={pct} className="h-2" /></div>
-              <p className="text-xs text-right mt-1 text-zinc-500">{pct.toFixed(0)}% used</p>
+            <Card key={b.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
+              <div className="flex justify-between"><h4 className="font-medium">{b.name}</h4><button onClick={() => del.mutate(b.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
+              <p className="text-xs text-stone-500 mt-1">{b.period}{b.category && ` · ${b.category}`}</p>
+              <div className="mt-3"><div className="flex justify-between text-sm mb-1"><span className="text-stone-400">${b.spent?.toLocaleString()}</span><span className="text-stone-500">${b.amount?.toLocaleString()}</span></div><Progress value={pct} className="h-2" /></div>
+              <p className="text-xs text-right mt-1 text-stone-500">{pct.toFixed(0)}% used</p>
             </CardContent></Card>
           )
         })}
@@ -666,43 +666,43 @@ function AcademicView() {
     <div className="space-y-6">
       <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Academics</h2>
         <div className="flex gap-2">
-          <Button onClick={() => setShowTerm(true)} size="sm" className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Term</Button>
+          <Button onClick={() => setShowTerm(true)} size="sm" className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Term</Button>
           {activeTerm && <Button onClick={() => { setUnitForm(p => ({ ...p, termId: activeTerm.id })); setShowUnit(true) }} size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />Unit</Button>}
         </div>
       </div>
 
       {terms.data?.map((term: any) => (
-        <Card key={term.id} className="bg-zinc-900 border-zinc-800">
+        <Card key={term.id} className="bg-stone-900 border-stone-800">
           <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
-            <div><CardTitle className="text-lg">{term.name}</CardTitle><p className="text-xs text-zinc-500">{format(new Date(term.startDate), 'MMM d, yyyy')}{term.endDate ? ` — ${format(new Date(term.endDate), 'MMM d, yyyy')}` : ''}</p></div>
-            <div className="flex items-center gap-2"><Badge className={term.status === 'active' ? 'bg-emerald-600/20 text-emerald-400' : 'bg-zinc-600/20 text-zinc-400'}>{term.status}</Badge>
+            <div><CardTitle className="text-lg">{term.name}</CardTitle><p className="text-xs text-stone-500">{format(new Date(term.startDate), 'MMM d, yyyy')}{term.endDate ? ` — ${format(new Date(term.endDate), 'MMM d, yyyy')}` : ''}</p></div>
+            <div className="flex items-center gap-2"><Badge className={term.status === 'active' ? 'bg-green-700/20 text-lime-400' : 'bg-stone-600/20 text-stone-400'}>{term.status}</Badge>
               {term.status === 'active' && <Button size="sm" variant="outline" onClick={() => updateTermStatus.mutate({ id: term.id, status: 'completed' })}>End Term</Button>}
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
             {term.units?.map((u: any) => (
-              <div key={u.id} className="border border-zinc-800 rounded-lg">
-                <button onClick={() => setExpandedUnit(expandedUnit === u.id ? null : u.id)} className="flex items-center justify-between w-full p-3 hover:bg-zinc-800/50">
-                  <div className="flex items-center gap-2"><span className="font-medium text-sm">{u.name}</span>{u.code && <span className="text-xs text-zinc-500">({u.code})</span>}
+              <div key={u.id} className="border border-stone-800 rounded-lg">
+                <button onClick={() => setExpandedUnit(expandedUnit === u.id ? null : u.id)} className="flex items-center justify-between w-full p-3 hover:bg-stone-800/50">
+                  <div className="flex items-center gap-2"><span className="font-medium text-sm">{u.name}</span>{u.code && <span className="text-xs text-stone-500">({u.code})</span>}
                     {u.hasPracticals && <Badge variant="outline" className="text-[9px]">Practicals</Badge>}
                     {u.hasProject && <Badge variant="outline" className="text-[9px]">Project</Badge>}
                   </div>
-                  <div className="flex items-center gap-2"><Badge className={`text-[9px] ${u.status === 'completed' ? 'bg-emerald-600/20 text-emerald-400' : 'bg-amber-600/20 text-amber-400'}`}>{u.status}</Badge>
-                    {u.grade && <span className="text-xs font-semibold text-emerald-400">{u.grade}</span>}
-                    {expandedUnit === u.id ? <ChevronDown className="h-4 w-4 text-zinc-500" /> : <ChevronRight className="h-4 w-4 text-zinc-500" />}
+                  <div className="flex items-center gap-2"><Badge className={`text-[9px] ${u.status === 'completed' ? 'bg-green-700/20 text-lime-400' : 'bg-amber-600/20 text-amber-400'}`}>{u.status}</Badge>
+                    {u.grade && <span className="text-xs font-semibold text-lime-400">{u.grade}</span>}
+                    {expandedUnit === u.id ? <ChevronDown className="h-4 w-4 text-stone-500" /> : <ChevronRight className="h-4 w-4 text-stone-500" />}
                   </div>
                 </button>
                 {expandedUnit === u.id && (
-                  <div className="p-3 pt-0 space-y-2 border-t border-zinc-800">
+                  <div className="p-3 pt-0 space-y-2 border-t border-stone-800">
                     {u.unitNotes?.map((n: any) => (
-                      <div key={n.id} className="p-2 rounded bg-zinc-800/50"><p className="text-sm font-medium">{n.title}</p><p className="text-xs text-zinc-400 mt-1">{n.content}</p></div>
+                      <div key={n.id} className="p-2 rounded bg-stone-800/50"><p className="text-sm font-medium">{n.title}</p><p className="text-xs text-stone-400 mt-1">{n.content}</p></div>
                     ))}
                     <Button size="sm" variant="ghost" onClick={() => { setNoteForm(p => ({ ...p, unitId: u.id })); setShowNote(true) }}><Plus className="h-3 w-3 mr-1" />Add Note</Button>
                   </div>
                 )}
               </div>
             ))}
-            {!term.units?.length && <p className="text-sm text-zinc-500">No units yet</p>}
+            {!term.units?.length && <p className="text-sm text-stone-500">No units yet</p>}
           </CardContent>
         </Card>
       ))}
@@ -745,14 +745,14 @@ function RelationshipsView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Relationships</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Add</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Relationships</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Add</Button></div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.data?.map((r: any) => (
-          <Card key={r.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
-            <div className="flex justify-between"><h4 className="font-medium">{r.name}</h4><button onClick={() => del.mutate(r.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
+          <Card key={r.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
+            <div className="flex justify-between"><h4 className="font-medium">{r.name}</h4><button onClick={() => del.mutate(r.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
             <Badge variant="outline" className="mt-1 text-[10px]">{r.type}</Badge>
-            {r.notes && <p className="text-xs text-zinc-400 mt-2">{r.notes}</p>}
-            {r.lastContact && <p className="text-xs text-zinc-500 mt-1">Last contact: {formatDistanceToNow(new Date(r.lastContact))} ago</p>}
+            {r.notes && <p className="text-xs text-stone-400 mt-2">{r.notes}</p>}
+            {r.lastContact && <p className="text-xs text-stone-500 mt-1">Last contact: {formatDistanceToNow(new Date(r.lastContact))} ago</p>}
           </CardContent></Card>
         ))}
       </div>
@@ -777,12 +777,12 @@ function TimePlannerView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Time Planner</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Add</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Time Planner</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Add</Button></div>
       <div className="space-y-2">
         {items.data?.map((c: any) => (
-          <div key={c.id} className="flex items-center justify-between p-3 rounded-lg bg-zinc-900 border border-zinc-800">
-            <div><p className="text-sm font-medium">{c.title}</p><p className="text-xs text-zinc-500">{format(new Date(c.date), 'MMM d, yyyy')} · {c.duration} min</p></div>
-            <div className="flex items-center gap-2"><Badge variant="outline" className="text-[10px]">{c.type}</Badge><button onClick={() => del.mutate(c.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
+          <div key={c.id} className="flex items-center justify-between p-3 rounded-lg bg-stone-900 border border-stone-800">
+            <div><p className="text-sm font-medium">{c.title}</p><p className="text-xs text-stone-500">{format(new Date(c.date), 'MMM d, yyyy')} · {c.duration} min</p></div>
+            <div className="flex items-center gap-2"><Badge variant="outline" className="text-[10px]">{c.type}</Badge><button onClick={() => del.mutate(c.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
           </div>
         ))}
       </div>
@@ -818,18 +818,18 @@ function LifeAuditView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Life Audit</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />New Check</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Life Audit</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />New Check</Button></div>
       {latest && (
-        <Card className="bg-zinc-900 border-zinc-800"><CardContent className="p-6">
+        <Card className="bg-stone-900 border-stone-800"><CardContent className="p-6">
           <ResponsiveContainer width="100%" height={350}>
-            <RadarChart data={radarData}><PolarGrid stroke="#333" /><PolarAngleAxis dataKey="subject" tick={{ fill: '#a1a1aa', fontSize: 12 }} /><PolarRadiusAxis domain={[0, 10]} tick={{ fill: '#666', fontSize: 10 }} /><Radar name="Score" dataKey="value" stroke="#10b981" fill="#10b981" fillOpacity={0.2} /></RadarChart>
+            <RadarChart data={radarData}><PolarGrid stroke="#3a3a35" /><PolarAngleAxis dataKey="subject" tick={{ fill: '#a8a29e', fontSize: 12 }} /><PolarRadiusAxis domain={[0, 10]} tick={{ fill: '#78716c', fontSize: 10 }} /><Radar name="Score" dataKey="value" stroke="#65a30d" fill="#65a30d" fillOpacity={0.2} /></RadarChart>
           </ResponsiveContainer>
-          <p className="text-xs text-zinc-500 text-center mt-2">Latest check: {format(new Date(latest.weekStart), 'MMM d, yyyy')}</p>
+          <p className="text-xs text-stone-500 text-center mt-2">Latest check: {format(new Date(latest.weekStart), 'MMM d, yyyy')}</p>
         </CardContent></Card>
       )}
-      <Card className="bg-zinc-900 border-zinc-800"><CardHeader><CardTitle className="text-lg">History</CardTitle></CardHeader><CardContent className="space-y-2">
+      <Card className="bg-stone-900 border-stone-800"><CardHeader><CardTitle className="text-lg">History</CardTitle></CardHeader><CardContent className="space-y-2">
         {checks.data?.map((c: any) => (
-          <div key={c.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-zinc-800">
+          <div key={c.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-stone-800">
             <span className="text-sm">{format(new Date(c.weekStart), 'MMM d, yyyy')}</span>
             <div className="flex gap-1">{dims.map(d => <Badge key={d.key} variant="outline" className="text-[9px]">{d.label.split(' ')[0]}: {(c as any)[d.key]}</Badge>)}</div>
           </div>
@@ -856,12 +856,12 @@ function InsightsView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Insights</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Insight</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Insights</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Insight</Button></div>
       <div className="space-y-3">
         {items.data?.map((i: any) => (
-          <Card key={i.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
-            <div className="flex justify-between"><h4 className="font-medium">{i.title}</h4><button onClick={() => del.mutate(i.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
-            <p className="text-sm text-zinc-400 mt-1">{i.content}</p>
+          <Card key={i.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
+            <div className="flex justify-between"><h4 className="font-medium">{i.title}</h4><button onClick={() => del.mutate(i.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button></div>
+            <p className="text-sm text-stone-400 mt-1">{i.content}</p>
             {i.tags && <div className="flex gap-1 mt-2">{i.tags.split(',').map((t: string, idx: number) => <Badge key={idx} variant="outline" className="text-[10px]">{t.trim()}</Badge>)}</div>}
           </CardContent></Card>
         ))}
@@ -892,18 +892,18 @@ function HabitsView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Habits</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Habit</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Habits</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Habit</Button></div>
       <div className="space-y-3">
         {habits.data?.map((h: any) => {
           const checkedToday = h.logs?.some((l: any) => format(new Date(l.date), 'yyyy-MM-dd') === today)
           const streak = h.logs?.filter((l: any) => l.completed).length || 0
           return (
-            <Card key={h.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4 flex items-center gap-4">
-              <button onClick={() => !checkedToday && checkIn.mutate(h.id)} className={`h-8 w-8 rounded-full border-2 flex items-center justify-center transition-colors ${checkedToday ? 'border-emerald-500 bg-emerald-500/20 text-emerald-400' : 'border-zinc-600 hover:border-emerald-500'}`}>
+            <Card key={h.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4 flex items-center gap-4">
+              <button onClick={() => !checkedToday && checkIn.mutate(h.id)} className={`h-8 w-8 rounded-full border-2 flex items-center justify-center transition-colors ${checkedToday ? 'border-lime-500 bg-lime-500/20 text-lime-400' : 'border-stone-600 hover:border-lime-500'}`}>
                 {checkedToday && <CheckCircle2 className="h-5 w-5" />}
               </button>
-              <div className="flex-1"><h4 className="font-medium text-sm">{h.name}</h4><p className="text-xs text-zinc-500">{h.frequency} · Streak: {streak}</p></div>
-              <button onClick={() => del.mutate(h.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button>
+              <div className="flex-1"><h4 className="font-medium text-sm">{h.name}</h4><p className="text-xs text-stone-500">{h.frequency} · Streak: {streak}</p></div>
+              <button onClick={() => del.mutate(h.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button>
             </CardContent></Card>
           )
         })}
@@ -927,19 +927,19 @@ function DailyCheckInView() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Daily Check-In</h2>
-      <Card className="bg-zinc-900 border-zinc-800"><CardContent className="p-4 space-y-4">
+      <Card className="bg-stone-900 border-stone-800"><CardContent className="p-4 space-y-4">
         <div><Label>Today&apos;s Focus</Label><Input value={form.focus} onChange={e => setForm({ ...form, focus: e.target.value })} placeholder="What's the main thing today?" /></div>
         <div><Label>Gratitude</Label><Textarea value={form.gratitude} onChange={e => setForm({ ...form, gratitude: e.target.value })} placeholder="What are you grateful for?" /></div>
         <div><Label>Challenges</Label><Textarea value={form.challenges} onChange={e => setForm({ ...form, challenges: e.target.value })} placeholder="What's challenging?" /></div>
         <div><Label>Notes</Label><Textarea value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></div>
-        <Button onClick={() => create.mutate()} className="bg-emerald-600 hover:bg-emerald-700 w-full">Save Check-In</Button>
+        <Button onClick={() => create.mutate()} className="bg-green-700 hover:bg-green-800 w-full">Save Check-In</Button>
       </CardContent></Card>
       <div className="space-y-2">
         {items.data?.slice(0, 7).map((c: any) => (
-          <Card key={c.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-3">
-            <p className="text-xs text-zinc-500">{format(new Date(c.date), 'EEEE, MMM d')}</p>
-            {c.focus && <p className="text-sm mt-1"><span className="text-zinc-400">Focus:</span> {c.focus}</p>}
-            {c.gratitude && <p className="text-sm"><span className="text-zinc-400">Gratitude:</span> {c.gratitude}</p>}
+          <Card key={c.id} className="bg-stone-900 border-stone-800"><CardContent className="p-3">
+            <p className="text-xs text-stone-500">{format(new Date(c.date), 'EEEE, MMM d')}</p>
+            {c.focus && <p className="text-sm mt-1"><span className="text-stone-400">Focus:</span> {c.focus}</p>}
+            {c.gratitude && <p className="text-sm"><span className="text-stone-400">Gratitude:</span> {c.gratitude}</p>}
           </CardContent></Card>
         ))}
       </div>
@@ -957,18 +957,18 @@ function WeeklyReviewView() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Weekly Review</h2>
-      <Card className="bg-zinc-900 border-zinc-800"><CardContent className="p-4 space-y-4">
+      <Card className="bg-stone-900 border-stone-800"><CardContent className="p-4 space-y-4">
         <div><Label>Wins</Label><Textarea value={form.wins} onChange={e => setForm({ ...form, wins: e.target.value })} placeholder="What went well?" /></div>
         <div><Label>Challenges</Label><Textarea value={form.challenges} onChange={e => setForm({ ...form, challenges: e.target.value })} /></div>
         <div><Label>Lessons</Label><Textarea value={form.lessons} onChange={e => setForm({ ...form, lessons: e.target.value })} /></div>
         <div><Label>Adjustments</Label><Textarea value={form.adjustments} onChange={e => setForm({ ...form, adjustments: e.target.value })} /></div>
-        <Button onClick={() => create.mutate()} className="bg-emerald-600 hover:bg-emerald-700 w-full">Save Review</Button>
+        <Button onClick={() => create.mutate()} className="bg-green-700 hover:bg-green-800 w-full">Save Review</Button>
       </CardContent></Card>
       <div className="space-y-2">
         {items.data?.slice(0, 4).map((r: any) => (
-          <Card key={r.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-3">
-            <p className="text-xs text-zinc-500 mb-1">Week of {format(new Date(r.weekStart), 'MMM d, yyyy')}</p>
-            {r.wins && <p className="text-sm"><span className="text-emerald-400">Wins:</span> {r.wins}</p>}
+          <Card key={r.id} className="bg-stone-900 border-stone-800"><CardContent className="p-3">
+            <p className="text-xs text-stone-500 mb-1">Week of {format(new Date(r.weekStart), 'MMM d, yyyy')}</p>
+            {r.wins && <p className="text-sm"><span className="text-lime-400">Wins:</span> {r.wins}</p>}
             {r.lessons && <p className="text-sm"><span className="text-amber-400">Lessons:</span> {r.lessons}</p>}
           </CardContent></Card>
         ))}
@@ -988,19 +988,19 @@ function BrainDumpView() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Brain Dump</h2>
-      <Card className="bg-zinc-900 border-zinc-800"><CardContent className="p-4 space-y-3">
+      <Card className="bg-stone-900 border-stone-800"><CardContent className="p-4 space-y-3">
         <Textarea rows={4} value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} placeholder="Dump everything on your mind..." />
         <div className="flex gap-3">
           <Input value={form.tags} onChange={e => setForm({ ...form, tags: e.target.value })} placeholder="Tags (comma separated)" className="flex-1" />
-          <Button onClick={() => create.mutate()} className="bg-emerald-600 hover:bg-emerald-700">Dump</Button>
+          <Button onClick={() => create.mutate()} className="bg-green-700 hover:bg-green-800">Dump</Button>
         </div>
       </CardContent></Card>
       <div className="space-y-2">
         {items.data?.map((d: any) => (
-          <Card key={d.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-3">
-            <div className="flex justify-between"><p className="text-sm whitespace-pre-wrap flex-1">{d.content}</p><button onClick={() => del.mutate(d.id)} className="text-zinc-500 hover:text-red-400 ml-2"><Trash2 className="h-4 w-4" /></button></div>
+          <Card key={d.id} className="bg-stone-900 border-stone-800"><CardContent className="p-3">
+            <div className="flex justify-between"><p className="text-sm whitespace-pre-wrap flex-1">{d.content}</p><button onClick={() => del.mutate(d.id)} className="text-stone-500 hover:text-red-400 ml-2"><Trash2 className="h-4 w-4" /></button></div>
             {d.tags && <div className="flex gap-1 mt-2">{d.tags.split(',').map((t: string, i: number) => <Badge key={i} variant="outline" className="text-[10px]">{t.trim()}</Badge>)}</div>}
-            <p className="text-xs text-zinc-600 mt-1">{formatDistanceToNow(new Date(d.createdAt))} ago</p>
+            <p className="text-xs text-stone-600 mt-1">{formatDistanceToNow(new Date(d.createdAt))} ago</p>
           </CardContent></Card>
         ))}
       </div>
@@ -1022,19 +1022,19 @@ function DigitalStoreView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Digital Store</h2><Button onClick={() => setShow(true)} className="bg-emerald-600 hover:bg-emerald-700"><Plus className="h-4 w-4 mr-1" />Item</Button></div>
+      <div className="flex items-center justify-between"><h2 className="text-2xl font-bold">Digital Store</h2><Button onClick={() => setShow(true)} className="bg-green-700 hover:bg-green-800"><Plus className="h-4 w-4 mr-1" />Item</Button></div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.data?.map((d: any) => {
           const isVisible = visibleItems.has(d.id)
           const catIcon = d.category === 'password' ? <Key className="h-3.5 w-3.5" /> : d.category === 'document' ? <FileText className="h-3.5 w-3.5" /> : <StickyNote className="h-3.5 w-3.5" />
           return (
-            <Card key={d.id} className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
+            <Card key={d.id} className="bg-stone-900 border-stone-800"><CardContent className="p-4">
               <div className="flex items-center justify-between"><div className="flex items-center gap-2">{catIcon}<h4 className="font-medium text-sm">{d.title}</h4></div><div className="flex items-center gap-2">
-                {d.isProtected && <button onClick={() => toggleVisible(d.id)} className="text-zinc-400 hover:text-emerald-400">{isVisible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button>}
-                <button onClick={() => del.mutate(d.id)} className="text-zinc-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button>
+                {d.isProtected && <button onClick={() => toggleVisible(d.id)} className="text-stone-400 hover:text-lime-400">{isVisible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button>}
+                <button onClick={() => del.mutate(d.id)} className="text-stone-500 hover:text-red-400"><Trash2 className="h-4 w-4" /></button>
               </div></div>
               <Badge variant="outline" className="mt-1 text-[10px]">{d.category}</Badge>
-              <p className="text-sm text-zinc-400 mt-2 font-mono whitespace-pre-wrap">{d.isProtected && !isVisible ? '••••••••••••' : d.content}</p>
+              <p className="text-sm text-stone-400 mt-2 font-mono whitespace-pre-wrap">{d.isProtected && !isVisible ? '••••••••••••' : d.content}</p>
             </CardContent></Card>
           )
         })}
@@ -1068,16 +1068,16 @@ function SearchView() {
       <h2 className="text-2xl font-bold">Search</h2>
       <div className="flex gap-3">
         <Input value={query} onChange={e => setQuery(e.target.value)} onKeyDown={e => e.key === 'Enter' && doSearch()} placeholder="Search everything..." className="flex-1" />
-        <Button onClick={doSearch} className="bg-emerald-600 hover:bg-emerald-700">{loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}</Button>
+        <Button onClick={doSearch} className="bg-green-700 hover:bg-green-800">{loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}</Button>
       </div>
       {results && (
         <div className="space-y-4">
-          {results.ventures?.length > 0 && <Card className="bg-zinc-900 border-zinc-800"><CardHeader><CardTitle className="text-sm">Ventures</CardTitle></CardHeader><CardContent>{results.ventures.map((v: any) => <p key={v.id} className="text-sm py-1">{v.name}</p>)}</CardContent></Card>}
-          {results.tasks?.length > 0 && <Card className="bg-zinc-900 border-zinc-800"><CardHeader><CardTitle className="text-sm">Tasks</CardTitle></CardHeader><CardContent>{results.tasks.map((t: any) => <p key={t.id} className="text-sm py-1">{t.title}</p>)}</CardContent></Card>}
-          {results.brainDumps?.length > 0 && <Card className="bg-zinc-900 border-zinc-800"><CardHeader><CardTitle className="text-sm">Brain Dumps</CardTitle></CardHeader><CardContent>{results.brainDumps.map((d: any) => <p key={d.id} className="text-sm py-1 truncate">{d.content}</p>)}</CardContent></Card>}
-          {results.insights?.length > 0 && <Card className="bg-zinc-900 border-zinc-800"><CardHeader><CardTitle className="text-sm">Insights</CardTitle></CardHeader><CardContent>{results.insights.map((i: any) => <p key={i.id} className="text-sm py-1">{i.title}</p>)}</CardContent></Card>}
-          {results.digitalItems?.length > 0 && <Card className="bg-zinc-900 border-zinc-800"><CardHeader><CardTitle className="text-sm">Digital Items</CardTitle></CardHeader><CardContent>{results.digitalItems.map((d: any) => <p key={d.id} className="text-sm py-1">{d.title}</p>)}</CardContent></Card>}
-          {Object.values(results).every((v: any) => !v?.length) && <p className="text-zinc-500 text-sm">No results found</p>}
+          {results.ventures?.length > 0 && <Card className="bg-stone-900 border-stone-800"><CardHeader><CardTitle className="text-sm">Ventures</CardTitle></CardHeader><CardContent>{results.ventures.map((v: any) => <p key={v.id} className="text-sm py-1">{v.name}</p>)}</CardContent></Card>}
+          {results.tasks?.length > 0 && <Card className="bg-stone-900 border-stone-800"><CardHeader><CardTitle className="text-sm">Tasks</CardTitle></CardHeader><CardContent>{results.tasks.map((t: any) => <p key={t.id} className="text-sm py-1">{t.title}</p>)}</CardContent></Card>}
+          {results.brainDumps?.length > 0 && <Card className="bg-stone-900 border-stone-800"><CardHeader><CardTitle className="text-sm">Brain Dumps</CardTitle></CardHeader><CardContent>{results.brainDumps.map((d: any) => <p key={d.id} className="text-sm py-1 truncate">{d.content}</p>)}</CardContent></Card>}
+          {results.insights?.length > 0 && <Card className="bg-stone-900 border-stone-800"><CardHeader><CardTitle className="text-sm">Insights</CardTitle></CardHeader><CardContent>{results.insights.map((i: any) => <p key={i.id} className="text-sm py-1">{i.title}</p>)}</CardContent></Card>}
+          {results.digitalItems?.length > 0 && <Card className="bg-stone-900 border-stone-800"><CardHeader><CardTitle className="text-sm">Digital Items</CardTitle></CardHeader><CardContent>{results.digitalItems.map((d: any) => <p key={d.id} className="text-sm py-1">{d.title}</p>)}</CardContent></Card>}
+          {Object.values(results).every((v: any) => !v?.length) && <p className="text-stone-500 text-sm">No results found</p>}
         </div>
       )}
     </div>
@@ -1090,9 +1090,9 @@ function SettingsView() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Settings</h2>
-      <Card className="bg-zinc-900 border-zinc-800"><CardContent className="p-4">
+      <Card className="bg-stone-900 border-stone-800"><CardContent className="p-4">
         <div className="flex items-center justify-between">
-          <div><p className="font-medium">Dark Mode</p><p className="text-xs text-zinc-500">Toggle between light and dark themes</p></div>
+          <div><p className="font-medium">Dark Mode</p><p className="text-xs text-stone-500">Toggle between light and dark themes</p></div>
           <Switch checked={theme === 'dark'} onCheckedChange={v => setTheme(v ? 'dark' : 'light')} />
         </div>
       </CardContent></Card>
