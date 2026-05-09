@@ -1,0 +1,273 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+  relationMode      = "prisma"
+}
+
+model Venture {
+  id               String     @id @default(cuid())
+  name             String
+  description      String     @default("")
+  status           String     @default("active")
+  color            String     @default("#10b981")
+  order            Int        @default(0)
+  stage            String     @default("ideation")
+  monetaryValue    Float      @default(0)
+  valueCurrency    String     @default("USD")
+  valueDescription String     @default("")
+  needs            String     @default("")
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  tasks            Task[]
+  decisions        Decision[]
+  meetings         Meeting[]
+  contacts         Contact[]
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @default("")
+  status      String   @default("todo")
+  priority    String   @default("medium")
+  dueDate     DateTime?
+  ventureId   String
+  venture     Venture  @relation(fields: [ventureId], references: [id], onDelete: Cascade)
+  tags        String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Decision {
+  id          String   @id @default(cuid())
+  title       String
+  context     String   @default("")
+  decision    String   @default("")
+  rationale   String   @default("")
+  ventureId   String
+  venture     Venture  @relation(fields: [ventureId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Meeting {
+  id          String   @id @default(cuid())
+  title       String
+  notes       String   @default("")
+  date        DateTime
+  ventureId   String
+  venture     Venture  @relation(fields: [ventureId], references: [id], onDelete: Cascade)
+  attendees   String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Contact {
+  id              String    @id @default(cuid())
+  name            String
+  role            String    @default("")
+  email           String    @default("")
+  phone           String    @default("")
+  notes           String    @default("")
+  ventureId       String
+  venture         Venture   @relation(fields: [ventureId], references: [id], onDelete: Cascade)
+  lastInteraction DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Relationship {
+  id           String    @id @default(cuid())
+  name         String
+  type         String    @default("friend")
+  notes        String    @default("")
+  birthday     DateTime?
+  lastContact  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model BalanceCheck {
+  id                  String   @id @default(cuid())
+  weekStart           DateTime
+  careerScore         Int      @default(5)
+  healthScore         Int      @default(5)
+  relationshipsScore  Int      @default(5)
+  financesScore       Int      @default(5)
+  educationScore      Int      @default(5)
+  mentalWellbeingScore Int     @default(5)
+  notes               String   @default("")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model AcademicTerm {
+  id          String   @id @default(cuid())
+  name        String
+  startDate   DateTime
+  endDate     DateTime?
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  units       AcademicUnit[]
+}
+
+model AcademicUnit {
+  id            String   @id @default(cuid())
+  name          String
+  code          String   @default("")
+  hasPracticals Boolean  @default(false)
+  hasProject    Boolean  @default(false)
+  hasExams      Boolean  @default(true)
+  status        String   @default("in-progress")
+  grade         String   @default("")
+  notes         String   @default("")
+  termId        String
+  term          AcademicTerm @relation(fields: [termId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  unitNotes     UnitNote[]
+}
+
+model UnitNote {
+  id          String   @id @default(cuid())
+  title       String
+  content     String   @default("")
+  type        String   @default("general")
+  unitId      String
+  unit        AcademicUnit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Insight {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  source    String   @default("")
+  tags      String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Habit {
+  id          String     @id @default(cuid())
+  name        String
+  description String     @default("")
+  frequency   String     @default("daily")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  logs        HabitLog[]
+}
+
+model HabitLog {
+  id        String   @id @default(cuid())
+  habitId   String
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  date      DateTime
+  completed Boolean  @default(false)
+  notes     String   @default("")
+  createdAt DateTime @default(now())
+}
+
+model DailyCheckIn {
+  id          String   @id @default(cuid())
+  date        DateTime
+  focus       String   @default("")
+  gratitude   String   @default("")
+  challenges  String   @default("")
+  notes       String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model WeeklyReview {
+  id          String   @id @default(cuid())
+  weekStart   DateTime
+  wins        String   @default("")
+  challenges  String   @default("")
+  lessons     String   @default("")
+  adjustments String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BrainDump {
+  id        String   @id @default(cuid())
+  content   String
+  tags      String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TimeCommitment {
+  id        String   @id @default(cuid())
+  title     String
+  type      String   @default("family")
+  date      DateTime
+  duration  Int      @default(60)
+  notes     String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FinanceAccount {
+  id          String   @id @default(cuid())
+  name        String
+  type        String   @default("personal")
+  ventureId   String?
+  balance     Float    @default(0)
+  currency    String   @default("USD")
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  transactions Transaction[]
+  budgets     Budget[]
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Float
+  type        String
+  category    String   @default("")
+  description String   @default("")
+  date        DateTime
+  accountId   String
+  account     FinanceAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  toAccountId String?
+  ventureId   String?
+  tags        String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Budget {
+  id          String   @id @default(cuid())
+  name        String
+  amount      Float
+  spent       Float    @default(0)
+  period      String   @default("monthly")
+  category    String   @default("")
+  accountId   String
+  account     FinanceAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  startDate   DateTime
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model DigitalItem {
+  id          String   @id @default(cuid())
+  title       String
+  category    String   @default("note")
+  content     String   @default("")
+  tags        String   @default("")
+  isProtected Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
