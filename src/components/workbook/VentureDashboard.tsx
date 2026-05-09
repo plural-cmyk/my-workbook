@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from './Store'
+import { api, useNav } from './Store'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
-import { Plus, Trash2, Edit3, Briefcase } from 'lucide-react'
+import { Plus, Trash2, Edit3, Briefcase, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -18,16 +18,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 export function VentureDashboard({ ventureId }: { ventureId: string }) {
   const qc = useQueryClient()
+  const nav = useNav()
   const venture = useQuery({ queryKey: ['venture', ventureId], queryFn: () => api.get(`/api/ventures/${ventureId}`) })
   const [tab, setTab] = useState('tasks')
   const [showEdit, setShowEdit] = useState(false)
   const [editForm, setEditForm] = useState<any>({})
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   useEffect(() => { if (venture.data) setEditForm(venture.data) }, [venture.data])
 
   const updateVenture = useMutation({
     mutationFn: (data: any) => api.put(`/api/ventures/${ventureId}`, data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['venture', ventureId] }); qc.invalidateQueries({ queryKey: ['ventures'] }); toast.success('Venture updated'); setShowEdit(false) }
+  })
+
+  const deleteVenture = useMutation({
+    mutationFn: () => api.del(`/api/ventures/${ventureId}`),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['ventures'] }); toast.success('Venture deleted'); nav.setView('dashboard') }
   })
 
   if (venture.isLoading) return <div className="flex items-center justify-center py-12"><div className="h-6 w-6 animate-spin rounded-full border-2 border-lime-400 border-t-transparent" /></div>
@@ -38,10 +45,12 @@ export function VentureDashboard({ ventureId }: { ventureId: string }) {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
+          <button onClick={() => nav.setView('dashboard')} className="flex items-center gap-1 text-xs text-stone-500 hover:text-stone-300 mb-2"><ArrowLeft className="h-3 w-3" />Back to Dashboard</button>
           <div className="flex items-center gap-3">
             <div className="h-4 w-4 rounded-full" style={{ backgroundColor: v.color }} />
             <h2 className="text-2xl font-bold">{v.name}</h2>
             <Badge className="bg-green-700/20 text-lime-400">{v.stage}</Badge>
+            <Badge variant="outline" className="text-[10px]">{v.status}</Badge>
           </div>
           <p className="text-stone-400 text-sm mt-1">{v.description || 'No description'}</p>
           <div className="flex gap-4 mt-2 text-sm">
@@ -50,10 +59,16 @@ export function VentureDashboard({ ventureId }: { ventureId: string }) {
           </div>
           {v.needs && <p className="text-sm text-amber-400/80 mt-1">Needs: {v.needs}</p>}
         </div>
-        <Dialog open={showEdit} onOpenChange={setShowEdit}>
-          <DialogTrigger asChild><Button variant="outline" size="sm"><Edit3 className="h-4 w-4 mr-1" />Edit</Button></DialogTrigger>
-          <DialogContent className="bg-stone-900 border-stone-800 text-stone-100 max-h-[85vh] overflow-y-auto">
-            <DialogHeader><DialogTitle>Edit Venture</DialogTitle></DialogHeader>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={() => setShowEdit(true)}><Edit3 className="h-4 w-4 mr-1" />Edit</Button>
+          <Button variant="outline" size="sm" onClick={() => setConfirmDelete(true)} className="text-red-400 hover:bg-red-900/20 hover:text-red-300 border-red-900/30"><Trash2 className="h-4 w-4 mr-1" />Delete</Button>
+        </div>
+      </div>
+
+      {/* Edit Venture Dialog */}
+      <Dialog open={showEdit} onOpenChange={setShowEdit}>
+        <DialogContent className="bg-stone-900 border-stone-800 text-stone-100 max-h-[85vh] overflow-y-auto">
+          <DialogHeader><DialogTitle>Edit Venture</DialogTitle></DialogHeader>
             <div className="space-y-3">
               <div><Label>Name</Label><Input value={editForm.name || ''} onChange={e => setEditForm({ ...editForm, name: e.target.value })} /></div>
               <div><Label>Description</Label><Textarea value={editForm.description || ''} onChange={e => setEditForm({ ...editForm, description: e.target.value })} /></div>
@@ -71,7 +86,19 @@ export function VentureDashboard({ ventureId }: { ventureId: string }) {
             <DialogFooter><Button onClick={() => updateVenture.mutate(editForm)} className="bg-green-700 hover:bg-green-800">Save</Button></DialogFooter>
           </DialogContent>
         </Dialog>
-      </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
+        <DialogContent className="bg-stone-900 border-stone-800 text-stone-100">
+          <DialogHeader><DialogTitle>Delete Venture?</DialogTitle></DialogHeader>
+          <p className="text-sm text-stone-400">This will permanently delete <span className="text-white font-medium">{v.name}</span> and all its tasks, decisions, meetings, and contacts. This cannot be undone.</p>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setConfirmDelete(false)}>Cancel</Button>
+            <Button onClick={() => deleteVenture.mutate()} className="bg-red-600 hover:bg-red-700">Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="bg-stone-800">
           <TabsTrigger value="tasks">Tasks ({v.tasks?.length || 0})</TabsTrigger>
