@@ -170,6 +170,8 @@ function cleanItem(item: Record<string, any>): Record<string, any> {
     if (IGNORED_FIELDS.has(k)) continue
     if (BOOLEAN_FIELDS.has(k)) {
       cleaned[k] = v === 1 || v === true
+    } else if (v instanceof Date) {
+      cleaned[k] = v.toISOString()
     } else if (v !== null && v !== undefined) {
       cleaned[k] = v
     }
@@ -180,7 +182,15 @@ function cleanItem(item: Record<string, any>): Record<string, any> {
 function stripRelations(item: Record<string, any>): Record<string, any> {
   const cleaned: Record<string, any> = {}
   for (const [k, v] of Object.entries(item)) {
-    if (!IGNORED_FIELDS.has(k) && typeof v !== 'object') {
+    if (IGNORED_FIELDS.has(k)) continue
+    if (v instanceof Date) {
+      cleaned[k] = v.toISOString()
+    } else if (v === null || v === undefined) {
+      // skip nulls
+    } else if (typeof v === 'object' && !Array.isArray(v)) {
+      // Skip nested relation objects (tasks, decisions, etc.)
+      // but allow arrays of primitives
+    } else {
       cleaned[k] = v
     }
   }
